@@ -1,15 +1,14 @@
-
 //CHAPTER TWO
-lilJSter.isLat = function (l) { //Function as in book
+lilJSter = _ = extend(lilJSter, {
+	isLat: function (l) { //Function as in book
 	return isNull(l) ? true :
-		isAtom(car(l)) ? this.isLat(cdr(l)) :
+		isAtom(car(l)) ? _.isLat(cdr(l)) :
 		/*ELSE*/ false; 
-}
-lilJSter.isMember = function (a,l) { //As in book
-	return isNull(l) ? false :
-		(/*OR*/ isEq(a,car(l)) || this.isMember(a,cdr(l))); //Else 
-}
+	},
+	member: function (a,l) { //As in book
+		return isNull(l) ? false :
+		(/*OR*/ isEq(a,car(l)) || _.isMember(a,cdr(l))); //Else 
+	}
+});
 
-
-
-
+r = new R(lilJSter);
