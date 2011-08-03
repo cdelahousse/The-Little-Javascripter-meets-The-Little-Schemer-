@@ -1,5 +1,5 @@
 ﻿//Chapter Four
-lilJSter = _ = extend(lilJSter, {
+lilJSter = _ = extendAndWrap(lilJSter, {
 	plus: function (n,m) {
 					return isZero(m) ? n:
 	add1(plus(n,sub1(m)));
@@ -108,5 +108,3 @@ plus(car(t),_.addtup(cdr(t)));
 						cons(car(l), _.rempickRewrite(sub1(n),cdr(l)));
 					}
 });
-
-r = new R(lilJSter);

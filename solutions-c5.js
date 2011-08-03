@@ -1,5 +1,5 @@
 ﻿//Chapter Five
-lilJSter = _ = extend(lilJSter, {
+lilJSter = _ = extendAndWrap(lilJSter, {
 	remberstar : function (a,l) { //Sometimes renders weird, but works XXX
 		return isNull(l) ? null :
 			isAtom(car(l)) ?
@@ -76,5 +76,3 @@ lilJSter = _ = extend(lilJSter, {
 	}
 	// XXX WRITE FUNCTION STARTING ON PAGE 91!
 });
-
-r = new R(lilJSter);

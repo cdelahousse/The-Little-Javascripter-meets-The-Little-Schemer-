@@ -1,49 +1,4 @@
-﻿//Creates a new object from props that will inherit from target
-function extend (target,props) {
-
-	//Add members from props to function
-	function F (p) {
-		for (member in p) {
-			this[member] = p[member];
-		};
-	}
-
-	//Inherit from target
-	F.prototype = target;
-
-	//New object
-	return new F(props);
-}
-
-//Wrap obj's members with with Crockford's p() function 
-//Usage: 
-//var r = new R(lilJSter);
-//r.multiinsertL('y','b',lat);
-//p() renders a human readable version of an S-Expression
-function R (obj) {
-	for (member in obj) {
-		//Mirrors obj's members, select wrapper
-		this[member] = wrap(member,p); 
-	};
-	
-	//Takes original property and wraps it
-	function wrap (mem,wrapper) {
-		return function () {
-			var args,fn;
-
-			//for fn.apply
-			args = Array.prototype.slice.call(arguments);
-
-			//copies function for fn
-			fn = obj[mem];
-
-			//Wrap fn
-			return wrapper( fn.apply(fn,args) );
-		};
-	}
-}
-
-//Test Variables 
+﻿//Test Variables 
 var 
 		//list of atoms
 		lat = ['a', ['b', ['c', ['b', ['d']]]]],
@@ -65,3 +20,58 @@ var
 
 		//Will wrap function with Crockford's p();
 		r;
+
+//Creates a new object from props that will inherit from target
+//Similar to Object.create
+function extend (target,props) {
+
+	//Add members from props to function
+	function F (p) {
+		for (member in p) {
+			this[member] = p[member];
+		};
+	}
+
+	//Inherit from target
+	F.prototype = target;
+
+	//New object
+	return new F(props);
+}
+
+//Copies member into new object and wraps it with a new function
+//Usage: 
+//var r = new R(lilJSter);
+//r.multiinsertL('y','b',lat);
+function R (obj,func) {
+	for (member in obj) {
+		//Mirrors obj's members, select wrapper
+		this[member] = wrap(member,func); 
+	};
+	
+	//Takes original property and wraps it
+	function wrap (mem,wrapper) {
+		return function () {
+			var fn;
+
+			//copies function for fn
+			fn = obj[mem];
+
+			//Wrap fn
+			return wrapper( fn.apply(fn,arguments) );
+		};
+	}
+}
+
+//Wraps and extends programatically
+function extendAndWrap (target,props){
+	var new_obj;
+
+	new_obj = extend(target,props);
+
+	//Wrap obj's members with with Crockford's p() function 
+	//p() renders a human readable version of an S-Expression
+	r = new R(new_obj,p);
+
+	return new_obj;
+}

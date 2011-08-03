@@ -1,5 +1,5 @@
 ﻿//CHAPTER THREE
-lilJSter = _ = extend(lilJSter, {
+lilJSter = _ = extendAndWrap(lilJSter, {
 	rember : function (a,l) {
 		return isNull(l) ? null :
 			isEq(a,car(l)) ? cdr(l) : 
@@ -86,5 +86,3 @@ lilJSter = _ = extend(lilJSter, {
 						_.multisubst(n,o,cdr(l)));
 	}
 });
-
-r = new R(_);
