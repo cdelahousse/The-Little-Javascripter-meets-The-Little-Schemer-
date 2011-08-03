@@ -9,15 +9,15 @@ var
 		//Null List  === Null. See Crockford's little Javascripter description
 		null_list = null,
 		//List of lats rendered from Crockford's Text to S-Expression function -- s();
-		list_lat = s("((how much (wood)) could ((a (wood)  chuck)) (((chuck))) (if (a) ((wood chuck))) could  chuck wood)"),
+		list_lat = s("((how much (wood)) could ((a (wood)  chuck)) " +
+				"(((chuck))) (if (a) ((wood chuck))) could  chuck wood)"),
 		list_lat2 = s("((five  plums) (four) (eleven  green  oranges))"),
 
 
 		//lilJSter alias
-		_,
+		_ ,
 		//Creates my 'lil Javascripter object
 		lilJSter = _ = {},
-
 		//Will wrap function with Crockford's p();
 		r;
 
@@ -46,24 +46,22 @@ function extend (target,props) {
 function R (obj,func) {
 	for (member in obj) {
 		//Mirrors obj's members, select wrapper
-		this[member] = wrap(member,func); 
+		this[member] = wrapMember(member,func); 
 	};
 	
 	//Takes original property and wraps it
-	function wrap (mem,wrapper) {
-		return function () {
-			var fn;
-
-			//copies function for fn
-			fn = obj[mem];
+	function wrapMember (mem,wrapper) {
+		//return function () {
+			var fn = obj[mem];
 
 			//Wrap fn
 			return wrapper( fn.apply(fn,arguments) );
-		};
+		//};
 	}
 }
 
-//Wraps and extends programatically
+//Extends an object with another and wraps
+//the members of the resulting object; 
 function extendAndWrap (target,props){
 	var new_obj;
 
