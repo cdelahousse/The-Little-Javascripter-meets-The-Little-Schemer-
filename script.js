@@ -2,22 +2,24 @@
 var 
 		//list of atoms
 		lat = ['a', ['b', ['c', ['b', ['d']]]]],
+		lat2 = ['z', ['y', ['x', ['w', ['v']]]]],
 		//List of numbers
 		tup = [1,[2,[3,[4,[5]]]]], 
 		num = 8,
 		atom = 'mom',
 		//Null List  === Null. See Crockford's little Javascripter description
 		null_list = null,
+		ll1,ll2, //list aliases
 		//List of lats rendered from Crockford's Text to S-Expression function -- s();
-		list_lat = s("((how much (wood)) could ((a (wood)  chuck)) " +
-				"(((chuck))) (if (a) ((wood chuck))) could  chuck wood)"),
-		list_lat2 = s("((five  plums) (four) (eleven  green  oranges))"),
-
+		list_lat = ll1 = s("((how much (wood)) could ((a (wood)  chuck)) " 
+				+ "(((chuck))) (if (a) ((wood chuck))) could  chuck wood)"),
+		list_lat2 = ll2 = s("((five  plums) (four) (eleven  green  oranges))"),
 
 		//lilJSter alias
 		_ ,
 		//Creates my 'lil Javascripter object
 		lilJSter = _ = {},
+
 		//Will wrap function with Crockford's p();
 		r;
 
@@ -46,22 +48,24 @@ function extend (target,props) {
 function R (obj,func) {
 	for (member in obj) {
 		//Mirrors obj's members, select wrapper
-		this[member] = wrapMember(member,func); 
+		this[member] = wrapMember(member); 
 	};
 	
 	//Takes original property and wraps it
 	function wrapMember (mem,wrapper) {
-		//return function () {
-			var fn = obj[mem];
+		return function (/*arguments*/) {
+			var fn;
+
+			//copies function for fn
+			fn = obj[mem];
 
 			//Wrap fn
-			return wrapper( fn.apply(fn,arguments) );
-		//};
+			return func( fn.apply(fn,arguments) );
+		};
 	}
 }
 
-//Extends an object with another and wraps
-//the members of the resulting object; 
+//Wraps and extends programatically
 function extendAndWrap (target,props){
 	var new_obj;
 
