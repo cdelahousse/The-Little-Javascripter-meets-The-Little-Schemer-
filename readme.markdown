@@ -6,10 +6,12 @@ Chapters are divided into their respective HTML pages loaded with the JS. They'r
 
 ###Usage:
 
-Enter the following into the REPL to test a function: \_.\<FUNCTION NAME\>
+Enter the following into the REPL to test a function: \_.\<functionname\>
+
 	\_.member(atom,list)
 
-TODO: Write about datatypes
+TODO: Write about DC datatypes
+TODO: Talk about conventions (isAtom vs Atom?)
 
 I've divided Doug's answers by chapter to avoid function name collisions. As the book progresses, some of his functions are rewritten with different implementations but using the same name. The files are named according to the chapter they refer to and have the dc-xx prefix.
 
