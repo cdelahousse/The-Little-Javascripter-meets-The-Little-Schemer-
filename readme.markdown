@@ -8,7 +8,7 @@ Chapters are divided into their respective HTML pages loaded with the JS. They'r
 
 Enter the following into the REPL to test a function: \_.\<functionname\>
 
-	\_.member(atom,list)
+	_.member(atom,list)
 
 TODO: Write about DC datatypes
 TODO: Talk about conventions (isAtom vs Atom?)
