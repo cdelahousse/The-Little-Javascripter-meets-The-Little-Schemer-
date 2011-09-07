@@ -53,8 +53,55 @@ lilJSter = _ = extendAndWrap(lilJSter, {
 	difference : function (s1, s2) {
 		return isNull (s1) ? null :
 			_.isMember(car(s1),s2) ?
-				cons(car(s1),s2) :
-			/*else*/ _.difference(cdr(s1),s2);
+				_.difference(cdr(s1),s2) :
+			/*else*/ cons(car(s1), _.difference(cdr(s1),s2));
 	},
+	intersectall: function (lset) {
+		return isNull (cdr(lset)) ? car(lset) :
+			_.intersect(car(lset), _.intersectall(cdr(lset)));
+	},
+	isaPair : function (x) {
+		return	isAtom(x) ? false :
+						isNull (x) ? false :
+						isNull(cdr(x)) ? false :
+						isNull(cdr(cdr(x))) ? true :
+						/*Else*/ false;
+		},
+	first : function (l) {
+		return car(l);
+	},
+
+	second : function (l) {
+		return car(cdr(l));
+	},
+	build : function (s1,s2) {
+		return cons(	s1,
+									cons(s2, null));
+	},
+	third : function (l) {
+		return car(cdr(cdr(l)));
+	},
+	isFun : function (r) {
+		return _.isSet(_.firsts(r));
+	},
+	revrel : function (r) {
+		return isNull(r) ? null :
+			cons(	_.build(	_.second(car(r)),
+											_.first(car(r))),
+						_.revrel(cdr(r)))
+	},
+	revpair : function (p) {
+		return _.build(_.second(p),_.first(p));
+	},
+	revrel2 : function (r) {
+		return isNull(r) ? null :
+			cons(	_.revpair(car(r)),
+						_.revrel2(cdr(r)));
+	}, 
+	isFullful : function (r) {
+		//"seconds" is defined through wishful thinking (see SICP lecture 2A)
+		return _.isSet(_.seconds(r));
+	},
+
 });
 
