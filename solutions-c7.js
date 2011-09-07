@@ -100,8 +100,13 @@ lilJSter = _ = extendAndWrap(lilJSter, {
 	}, 
 	isFullful : function (r) {
 		//"seconds" is defined through wishful thinking (see SICP lecture 2A)
+		//which means using a procedure or function before it was defined hope
+		//that it will be.
 		return _.isSet(_.seconds(r));
 	},
-
+	seconds : function (l) {
+		return isNull(l) ? null :
+			cons(_.second(car(l)), _.seconds(cdr(l))); //Now, "seconds" is defined
+	}
 });
 
